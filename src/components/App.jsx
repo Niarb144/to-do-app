@@ -1,19 +1,35 @@
 import React, { useState } from "react";
 
 function App() {
-
+  const listItems = [];
   const[listItem, setList] = useState({
     item: ""
   });
+  
 
   function handleChange(event){
-    const{list, value} = event.target;
+    const{name, value} = event.target;
     setList(prevValue => {
       return {
         ...prevValue,
-        [list] : value
+        [name] : value
       };
     });
+    console.log(value)
+    listItems.push(value)
+    console.log(listItems);
+    
+  }
+
+  function addItem(){
+      const newItem = listItem.item
+
+    // listItems.push(newItem);
+    console.log(newItem);
+    console.log(listItems);
+    
+    
+    
   }
 
   return (
@@ -23,17 +39,17 @@ function App() {
       </div>
       <div className="form">
         <input onChange = {handleChange} value={listItem.item} name="item"/>
-        <button>
+        <button onClick={addItem}>
           <span>Add</span>
         </button>
       </div>
       <div>
         <ul>
-          <li>A Item</li>
+          <li>{listItem.item}</li>
         </ul>
       </div>
     </div>
   );
 }
 
-export default App
+export default App;
