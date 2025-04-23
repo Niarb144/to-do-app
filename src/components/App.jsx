@@ -1,35 +1,28 @@
 import React, { useState } from "react";
 
 function App() {
-  const listItems = [];
-  const[listItem, setList] = useState({
-    item: ""
-  });
-  
+  const[listItem, setList] = useState("");
+  const[items, setItems] = useState([]);
 
   function handleChange(event){
-    const{name, value} = event.target;
-    setList(prevValue => {
-      return {
-        ...prevValue,
-        [name] : value
-      };
-    });
+    const value = event.target.value;
+    setList(value);
     console.log(value)
-    listItems.push(value)
-    console.log(listItems);
+    // listItems.push(value)
+    // console.log(listItems);
     
   }
 
   function addItem(){
-      const newItem = listItem.item
+    setItems(prevItems => {
+      return [...prevItems, listItem];
+    });
+
+    setList("");
 
     // listItems.push(newItem);
-    console.log(newItem);
-    console.log(listItems);
-    
-    
-    
+    // console.log(newItem);
+    // console.log(listItems);    
   }
 
   return (
@@ -38,14 +31,16 @@ function App() {
         <h1>To-Do List</h1>
       </div>
       <div className="form">
-        <input onChange = {handleChange} value={listItem.item} name="item"/>
+        <input onChange = {handleChange} value={listItem} name="item"/>
         <button onClick={addItem}>
           <span>Add</span>
         </button>
       </div>
       <div>
         <ul>
-          <li>{listItem.item}</li>
+          {items.map(item =><li>{item}</li>
+          )}
+          
         </ul>
       </div>
     </div>
